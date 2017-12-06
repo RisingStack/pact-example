@@ -1,0 +1,5 @@
+.nvmrc
+*.log
+logs
+pacts
+node_modules
