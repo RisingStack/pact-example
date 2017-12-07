@@ -7,11 +7,11 @@ function get (req, res) {
 }
 
 function create (req, res) {
-  const product = req.params.product
-  products.create(product)
+  const product = req.body
+  const savedProduct = products.create(product)
 
   res.statusCode = 201
-  res.json(product)
+  res.json(savedProduct)
 }
 
 function findById (req, res) {

@@ -8,9 +8,9 @@ function getAll () {
 }
 
 function create (product) {
-  const id = Math.max([...data.keys(), 0]) + 1
+  const id = Math.max(...data.keys(), 0) + 1
   data.set(id, Object.assign(product, { id }))
-  return product
+  return data.get(id)
 }
 
 function getById (id) {

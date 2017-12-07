@@ -14,6 +14,18 @@ async function getProducts () {
   console.log(productsString)
 }
 
+function registerProduct(product) {
+  return request.post({
+    url: `${PRODUCTS_SERVICE_URL}/products`,
+    body: product,
+    json: true,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+}
+
 module.exports = {
-  getProducts
+  getProducts,
+  registerProduct
 }
