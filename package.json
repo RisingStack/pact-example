@@ -10,6 +10,7 @@
     "test-provider": "NODE_ENV=test node server/consumerTests/verifyPacts.js",
     "publish-pacts": "client/tasks/publish-pacts.sh",
     "pact-broker": "docker run -d -p 8080:80 risingstack/pact_broker_example",
+    "delete-example-pact": "curl -X DELETE http://localhost:8080/pacticipants/Zoo%20App",
     "test": "NODE_ENV=test npm-run-all test-consumer test-provider",
     "start": "PRODUCT_SERVICE_URL='http://localhost:3001' npm-run-all --parallel server client"
   },

@@ -29,13 +29,27 @@ describe('product handling', () => {
     await provider.finalize()
   })
 
-  describe('#getProducts', () => {
+  describe('#getAllProducts', () => {
     it('should get product list from server', async function () {
       await provider.addInteraction(interactions.getProductList)
 
       const consoleSpy = sandbox.spy(console, 'log')
-      await client.getProducts()
+      await client.getAllProducts()
       expect(consoleSpy).to.have.been.calledWith('CLIENT: Current products are: Foo')
+      await provider.verify()
+    })
+  })
+
+  describe('#getProducts', () => {
+    it('should return product list based on query', async function () {
+      await provider.addInteraction(interactions.getFilteredProductList)
+      const productList = await client.getProducts({
+        'min-price': '2',
+        'max-price': '5',
+      })
+
+      expect(productList).to.eql([ { name: 'Foo', img: 'http://foo-url.com', price: 2 } ])
+
       await provider.verify()
     })
   })
@@ -58,5 +72,4 @@ describe('product handling', () => {
       await provider.verify()
     })
   })
-
 })

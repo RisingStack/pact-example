@@ -1,9 +1,16 @@
 'use strict'
 
 const products = require('./model/products')
+const _ = require('lodash')
 
 function get (req, res) {
-  res.json(products.getAll())
+  if (_.isEmpty(req.query)) {
+    return res.json(products.getAll())
+  }
+
+  const { 'min-price': minPrice, 'max-price': maxPrice } = req.query
+
+  return res.json(products.getByPrice({ minPrice, maxPrice }))
 }
 
 function create (req, res) {

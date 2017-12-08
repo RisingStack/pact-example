@@ -1,7 +1,17 @@
 'use strict'
-const like = require('pact').Matchers.somethingLike
+const { somethingLike: like, eachLike, term } = require('pact').Matchers
 
 const ONE_PRODUCT_BODY = [ { name: 'Foo' } ]
+const PRICE_FILTERED_PRODUCT_BODY = {
+  name: 'Foo',
+  img: 'http://foo-url.com',
+  price: 2
+}
+
+const PRICE_FILTERED_PRODUCT_QUERY = {
+  'min-price': '2',
+  'max-price': '5',
+}
 
 const REGISTRATION_REQUEST_BODY = {
   name: 'Bar',
@@ -29,6 +39,19 @@ module.exports = {
     willRespondWith: {
       status: 200,
       body: ONE_PRODUCT_BODY
+    }
+  },
+  getFilteredProductList: {
+    state: 'it has multiple products with different prices',
+    uponReceiving: 'a request to retrieve product list filtered by price',
+    withRequest: {
+      method: 'GET',
+      path: '/products',
+      query: PRICE_FILTERED_PRODUCT_QUERY
+    },
+    willRespondWith: {
+      status: 200,
+      body: eachLike(PRICE_FILTERED_PRODUCT_BODY)
     }
   },
   registerProduct: {
