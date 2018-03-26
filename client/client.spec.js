@@ -4,9 +4,9 @@
 const chai = require('chai')
 const sinon = require('sinon')
 const sinonChai = require('sinon-chai')
-const provider = require('./mockServer/provider')
+const provider = require('./expectation/provider')
 const client = require('./client')
-const interactions = require('./mockServer/interactions')
+const interactions = require('./expectation/interactions')
 const _ = require('lodash')
 
 const expect = chai.expect
